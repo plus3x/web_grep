@@ -1,9 +1,8 @@
 require './lib/web_grep'
 
-Gem::Specification.new 'web_grep' do |s|
-  s.version     = '0.0.0' # WebGrep::VERSION
+Gem::Specification.new 'web_grep', WebGrep::VERSION do |s|
   s.homepage    = 'http://rubygems.org/gems/web_grep'
-  s.date        = '2014-06-25'
+  s.date        = '2014-06-26'
   s.summary     = 'Web grep is a grep for web pages'
   s.description = 'Web grep is a grep for web pages'
   s.author      = 'Vladislav Petrov'
