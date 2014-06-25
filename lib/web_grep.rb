@@ -1,3 +1,3 @@
 module WebGrep
-  autoload :VERSION,  'web_grep/version'
+  autoload :VERSION, 'web_grep/version'
 end

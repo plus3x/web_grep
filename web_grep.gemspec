@@ -1,4 +1,4 @@
-require './lib/web_grep'
+require './lib/web_grep/version'
 
 Gem::Specification.new 'web_grep', WebGrep::VERSION do |s|
   s.homepage    = 'http://rubygems.org/gems/web_grep'
