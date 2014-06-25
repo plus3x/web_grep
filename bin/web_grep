@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << './lib'
+
+require 'optparse'
+require 'web_grep'
+
+options = {}
+OptionParser.new do |opt|
+  opt.banner  = "Usage:\n    web_grep WORD WEB_PAGE [OPTIONS]"
+  opt.separator ''
+  opt.separator 'Options'
+
+  opt.on('-w', '--word', String, 'Searcheble word or RegExp') do
+    options[:world] = true
+  end
+
+  opt.on('-p', '--web-page', String, 'Web page name: "ya.ru"') do |word|
+    options[:web_page] = word
+  end
+
+  opt.on_tail('-v', '--version', 'Show Version') do
+    puts WebGrep::VERSION
+    exit
+  end
+
+  opt.on_tail('-h', '--help', 'Show this.') { puts opt; exit }
+  
+  if ARGV.empty? && options.empty?
+    opt.on { puts opt; exit }
+  end
+end.parse!
+
+# puts WebGrep:: => resault
