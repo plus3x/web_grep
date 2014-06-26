@@ -18,4 +18,7 @@ Gem::Specification.new 'web_grep', WebGrep::VERSION do |s|
   s.test_files    = `git ls-files -- {test,spec,features}`.split
   s.executables   = `git ls-files -- bin`.split.map{ |f| File.basename(f) }
   s.require_paths = ['lib']
+
+  s.add_development_dependency 'nokogiri'
+  s.add_development_dependency 'open-uri'
 end
