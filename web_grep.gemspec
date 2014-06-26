@@ -15,7 +15,7 @@ Gem::Specification.new 'web_grep', WebGrep::VERSION do |s|
   s.required_rubygems_version = '>= 2.3.0'
 
   s.files         = `git ls-files`.split
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split
-  s.executables   = `git ls-files -- bin/*`.split.map{ |f| File.basename(f) }
+  s.test_files    = `git ls-files -- {test,spec,features}`.split
+  s.executables   = `git ls-files -- bin`.split.map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 end
