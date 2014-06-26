@@ -22,6 +22,14 @@ OptionParser.new do |opt|
     options[:url] = url
   end
 
+  opt.on('-q', '--quite', 'Show only xpaths') do |q|
+    options[:quite] = q
+  end
+
+  opt.on('-c', '--only-count', 'Show only count') do |c|
+    options[:only_count] = c
+  end
+
   opt.on_tail('-v', '--version', 'Show version') do
     puts WebGrep::VERSION
     exit
@@ -35,10 +43,11 @@ OptionParser.new do |opt|
 end.parse!
 
 greped = WebGrep::Grep.new(
-  word: options[:word] || ARGV[0],
-  url:  options[:url ] || ARGV[1],
-  file: options[:file]
+  word:  options[:word] || ARGV[0],
+  url:   options[:url ] || ARGV[1],
+  file:  options[:file],
+  quite: options[:quite]
 ).grep!
 
-puts greped
+puts greped if !options[:only_count]
 puts "#{"\033[32;1m"}Found #{greped.count}#{"\033[0m"}"
