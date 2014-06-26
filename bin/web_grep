@@ -34,8 +34,11 @@ OptionParser.new do |opt|
   end
 end.parse!
 
-puts WebGrep::Grep.new(
+greped = WebGrep::Grep.new(
   word: options[:word] || ARGV[0],
   url:  options[:url ] || ARGV[1],
   file: options[:file]
 ).grep!
+
+puts greped
+puts "#{"\033[32;1m"}Found #{greped.count}#{"\033[0m"}"

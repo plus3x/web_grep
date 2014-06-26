@@ -1,16 +1,29 @@
+require 'nokogiri'
+require 'open-uri'
+
 module WebGrep
   class Grep
     def initialize(word:,url:,file:)
       if file && url
-        # raise 'Should set one of params, url or file'
+        raise 'Should set one of params, url or file!'
+      end
+      if url && !url.match('http://|https://')
+        url = "http://#{url}"
       end
       @word, @url, @file = word, url, file
     end
 
     def grep!
-      "Word: #{@word}\n" \
-      "URL:  #{@url}\n"  \
-      "File: #{@file}"
+      Nokogiri::XML(open(@url || @file)).search('[text()*=""]').select do |e|
+        e.content
+          .encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+          .match /#{@word}/
+      end.map do |l|
+        "#{"\033[32;1m"}XPath: #{l.path}#{"\033[0m"}\n" \
+        "\tMatched content: #{l.content}"
+      end
+    rescue SocketError
+      raise 'Bad url or connection!'
     end
   end
 end
