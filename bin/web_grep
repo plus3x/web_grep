@@ -10,24 +10,32 @@ OptionParser.new do |opt|
   opt.separator ''
   opt.separator 'Options'
 
-  opt.on('-w', '--word', String, 'Searcheble word or RegExp') do
-    options[:world] = true
+  opt.on('-w', '--word [word]', String, 'Searcheble word or RegExp') do |word|
+    options[:word] = word
   end
 
-  opt.on('-p', '--web-page', String, 'Web page name: "ya.ru"') do |word|
-    options[:web_page] = word
+  opt.on('-f', '--file [file_path]', String, 'Search in file: "../index.html"') do |file|
+    options[:file] = file
   end
 
-  opt.on_tail('-v', '--version', 'Show Version') do
+  opt.on('-u', '--url [url]', String, 'Search in URL: "ya.ru"') do |url|
+    options[:url] = url
+  end
+
+  opt.on_tail('-v', '--version', 'Show version') do
     puts WebGrep::VERSION
     exit
   end
 
-  opt.on_tail('-h', '--help', 'Show this.') { puts opt; exit }
+  opt.on_tail('-h', '--help', 'Show this help') { puts opt; exit }
   
   if ARGV.empty? && options.empty?
     opt.on { puts opt; exit }
   end
 end.parse!
 
-# puts WebGrep:: => resault
+puts WebGrep::Grep.new(
+  word: options[:word] || ARGV[0],
+  url:  options[:url ] || ARGV[1],
+  file: options[:file]
+).grep!

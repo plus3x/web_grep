@@ -17,6 +17,6 @@ Usage
 Copyright
 =========
 
-Copyright (c) 2014 [Vladislav Petrov].
+Copyright (c) 2014 Vladislav Petrov.
 
 See MIT-LICENSE.md for further details.
