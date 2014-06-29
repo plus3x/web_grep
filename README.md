@@ -23,7 +23,9 @@ Options
     -f, --file [file_path]           Search in file: "../index.html"
     -u, --url [url]                  Search in URL: "ya.ru"
     -q, --quite                      Show only xpaths
-    -c, --only-count                 Show only count
+    -c, --count                      Show only count
+    -x, --xpath                      Show xpaths to founded
+    -s, --css                        Show css paths to founded
     -v, --version                    Show version
     -h, --help                       Show this help
 ```
