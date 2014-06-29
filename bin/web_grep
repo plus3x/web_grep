@@ -7,8 +7,7 @@ require 'web_grep'
 options = {}
 OptionParser.new do |opt|
   opt.banner  = "Usage:\n    web_grep WORD WEB_PAGE [OPTIONS]"
-  opt.separator ''
-  opt.separator 'Options'
+  opt.separator "\nOptions"
 
   opt.on('-w', '--word [word]', String, 'Searcheble word or RegExp') do |word|
     options[:word] = word
@@ -26,8 +25,16 @@ OptionParser.new do |opt|
     options[:quite] = q
   end
 
-  opt.on('-c', '--only-count', 'Show only count') do |c|
+  opt.on('-c', '--count', 'Show only count') do |c|
     options[:only_count] = c
+  end
+
+  opt.on('-x', '--xpath', 'Show xpaths to founded') do |x|
+    options[:xpath] = x
+  end
+
+  opt.on('-s', '--css', 'Show css paths to founded') do |s|
+    options[:css] = s
   end
 
   opt.on_tail('-v', '--version', 'Show version') do
@@ -49,5 +56,9 @@ greped = WebGrep::Grep.new(
   quite: options[:quite]
 ).grep!
 
-puts greped if !options[:only_count]
+greped.each do |l|
+  puts "\033[32;1m" + "CSS path: #{l.css_path}"       if options[:css]
+  puts "\033[32;1m" + "XPath: #{l.path}"              if options[:xpath]
+  puts "\033[0m"    + "Matched content: #{l.content}" unless options[:quite]
+end unless options[:only_count]
 puts "#{"\033[32;1m"}Found #{greped.count}#{"\033[0m"}"

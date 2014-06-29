@@ -1,6 +1,8 @@
 require 'nokogiri'
 require 'open-uri'
 
+require 'pry'
+
 module WebGrep
   class Grep
     def initialize(word:,url:,file:,quite:)
@@ -18,9 +20,6 @@ module WebGrep
         e.content
           .encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
           .match /#{@word}/
-      end.map do |l|
-        "#{"\033[32;1m"}XPath: #{l.path}#{"\033[0m"}" \
-        "#{"\n\tMatched content: #{l.content}" if !@quite}"
       end
     rescue SocketError
       raise 'Bad url or connection!'
