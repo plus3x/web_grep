@@ -60,5 +60,5 @@ greped.each do |l|
   puts "\033[32;1m" + "CSS path: #{l.css_path}"       if options[:css]
   puts "\033[32;1m" + "XPath: #{l.path}"              if options[:xpath]
   puts "\033[0m"    + "Matched content: #{l.content}" unless options[:quite]
-end unless options[:only_count]
-puts "#{"\033[32;1m"}Found #{greped.count}#{"\033[0m"}"
+end if greped && !options[:only_count]
+puts "#{"\033[32;1m"}Found #{greped.to_a.count}#{"\033[0m"}"
